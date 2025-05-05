@@ -8,7 +8,7 @@ namePrefix: dev-
 
 images:
 - name: gcr.io/staging-195400/acd
-  newName: 1.1.0
+  newName: 1.1.1
 - name: grade-submission-api
   newName: gcr.io/staging-195400/acd
   newTag: 2.2.37.0

@@ -1,0 +1,33 @@
+name: Update Image Tag
+
+on:
+    workflow_dispatch:
+        inputs:
+            project-name:
+                description: 'Project name'
+                required: true
+                default: 'acd'
+            environment:
+                description: 'Environment name'
+                required: true
+                default: 'dev'
+            image-name:
+                description: 'Image name'
+                required: true
+                default: 'gcr.io/staging-195400/acd'
+            new-tag:
+                description: 'New image tag'
+                required: true
+                default: ""
+jobs:
+  update-image-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: imranismail/setup-kustomize@v2
+      - run: |
+          cd argo-kustomize/${{ github.event.inputs.project-name }}/${{ github.event.inputs.environment }}/overlays/
+          kustomize edit set image ${{ github.event.inputs.image-name }}=${{ github.event.inputs.new-tag }}
+          git add kustomization.yaml
+          git commit -m "Set image tag to ${GITHUB_SHA}"
+          git push

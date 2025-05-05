@@ -2,18 +2,19 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base
+- ../../base
 
 namePrefix: dev-
-nameSuffix: ""
 
 images:
-  - name: grade-submission-api
-    newName: gcr.io/staging-195400/acd
-    newTag: 2.2.37.0
+- name: gcr.io/staging-195400/acd
+  newName: 1.1.0
+- name: grade-submission-api
+  newName: gcr.io/staging-195400/acd
+  newTag: 2.2.37.0
 
 patches:
-  - path: replicas-patch.yaml
-    target:
-      kind: Deployment
-      name: grade-submission-api
+- path: replicas-patch.yaml
+  target:
+    kind: Deployment
+    name: grade-submission-api

@@ -17,7 +17,7 @@ spec:
                   com.apps/environment: dev
           - git:
               repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
-              revision: 'dev'
+              revision: 'main'
               directories:
                 - path: 'apps/*/*'
   template:
@@ -31,7 +31,7 @@ spec:
       project: '{{index .metadata.labels "com.apps/environment"}}-{{index .metadata.labels "com.apps/cluster-team"}}'
       source:
         repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
-        targetRevision: 'dev'
+        targetRevision: 'main'
         path: '{{.path.path}}'
         helm:
           ignoreMissingValueFiles: true

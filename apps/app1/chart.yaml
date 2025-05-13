@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+name: app2
+versionn: 1.0.0
+
+dependencies:
+  - name: nginx
+    version: 72.1.1
+    repository: https://artifacthub.io/packages/helm/bitnami/

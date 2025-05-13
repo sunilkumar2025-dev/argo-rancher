@@ -1,0 +1,49 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps-dev
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - "missingkey=error"
+  generators:
+    - matrix:
+        generators:
+          - clusters:
+              selector:
+                matchLabels:
+                  com.apps/platform: apps
+                  com.apps/environment: dev
+          - git:
+              repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
+              revision: 'dev'
+              directories:
+                - path: 'apps/*/*'
+  template:
+    metadata:
+      name: '{{index .metadata.labels "com.apps/environment"}}{{index .path.segments 2}}'
+      labels:
+        com.apps/environment: '{{index .metadata.labels "com.apps/environment"}}'
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: '.'
+    spec:
+      project: '{{index .metadata.labels "com.apps/environment"}}-{{index .metadata.labels "com.apps/cluster-team"}}'
+      source:
+        repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
+        targetRevision: 'dev'
+        path: '{{.path.path}}'
+        helm:
+          ignoreMissingValueFiles: true
+          valueFiles:
+            - values.yaml
+            - values-{{index .metadata.labels "com.apps/environment"}}.yaml
+      destination:
+        server: '{{.server}}'
+        namespace: '{{index .path.segments 1}}'
+      syncPolicy:
+        
+        automated:
+          allowEmpty: true
+          prune: true
+          selfHeal: true

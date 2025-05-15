@@ -10,12 +10,7 @@ spec:
   generators:
     - matrix:
         generators:
-          - clusters:
-              selector:
-                matchLabels:
-                  kubernetes.io/metadata.name: dev
-                  name: dev
-                  test: cluster
+          - clusters: {}
           - git:
               repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
               revision: 'main'

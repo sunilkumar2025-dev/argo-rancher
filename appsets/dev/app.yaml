@@ -21,13 +21,13 @@ spec:
                 - path: 'apps/*/*'
   template:
     metadata:
-      name: '{{index .metadata.labels "kubernetes.io/metadata.name"}}{{index .path.segments 2}}'
+      name: 'dev'
       labels:
-        com.apps/environment: '{{index .metadata.labels "kubernetes.io/metadata.name"}}'
+        com.apps/environment: 'dev'
       annotations:
         argocd.argoproj.io/manifest-generate-paths: '.'
     spec:
-      project: '{{index .metadata.labels "kubernetes.io/metadata.name"}}'
+      project: 'default'
       source:
         repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
         targetRevision: 'main'
@@ -36,7 +36,7 @@ spec:
           ignoreMissingValueFiles: true
           valueFiles:
             - values.yaml
-            - values-{{index .metadata.labels "kubernetes.io/metadata.name"}}.yaml
+            - values-dev.yaml
       destination:
         server: '{{.server}}'
         namespace: '{{index .path.segments 1}}'

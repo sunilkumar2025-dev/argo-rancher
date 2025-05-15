@@ -13,8 +13,7 @@ spec:
           - clusters:
               selector:
                 matchLabels:
-                  com.apps/platform: apps
-                  com.apps/environment: dev
+                  kubernetes.io/metadata.name: dev
           - git:
               repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
               revision: 'main'
@@ -28,7 +27,7 @@ spec:
       annotations:
         argocd.argoproj.io/manifest-generate-paths: '.'
     spec:
-      project: '{{index .metadata.labels "com.apps/environment"}}-{{index .metadata.labels "com.apps/cluster-team"}}'
+      project: '{{index .metadata.labels "kubernetes.io/metadata.name"}}'
       source:
         repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
         targetRevision: 'main'
@@ -37,7 +36,7 @@ spec:
           ignoreMissingValueFiles: true
           valueFiles:
             - values.yaml
-            - values-{{index .metadata.labels "com.apps/environment"}}.yaml
+            - values-{{index .metadata.labels "kubernetes.io/metadata.name"}}.yaml
       destination:
         server: '{{.server}}'
         namespace: '{{index .path.segments 1}}'

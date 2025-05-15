@@ -15,7 +15,7 @@ spec:
               repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
               revision: 'main'
               directories:
-                - path: 'apps/*/*'
+                - path: 'apps/*'
   template:
     metadata:
       name: 'dev'

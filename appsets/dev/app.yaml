@@ -33,7 +33,7 @@ spec:
       source:
         repoURL: 'https://github.com/sunilkumar2025-dev/argo-rancher.git'
         targetRevision: 'main'
-        path: '{{.path.path}}'
+        path: 'apps/*/*'
         helm:
           ignoreMissingValueFiles: true
           valueFiles:

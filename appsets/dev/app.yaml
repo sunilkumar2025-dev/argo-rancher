@@ -21,9 +21,9 @@ spec:
                 - path: 'apps/*/*'
   template:
     metadata:
-      name: '{{index .metadata.labels "com.apps/environment"}}{{index .path.segments 2}}'
+      name: '{{index .metadata.labels "kubernetes.io/metadata.name"}}{{index .path.segments 2}}'
       labels:
-        com.apps/environment: '{{index .metadata.labels "com.apps/environment"}}'
+        com.apps/environment: '{{index .metadata.labels "kubernetes.io/metadata.name"}}'
       annotations:
         argocd.argoproj.io/manifest-generate-paths: '.'
     spec:
